@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Random Comics</title>
+
+	<!-- bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
+	<!-- estrellas -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- mi hoja de estilos -->
+	<link rel="stylesheet" href="styles/ownStyles.css">
+</head>
+<body onload="traer();">
+
+	<div class="ratingHolder"></div>
+
+
+	<header class="text-center text-white">
+
+		<div class="">
+			
+			<div class="p-3 titular">
+				<div class="col-12">
+					<h1>Bienvenid@s <br>visitantes</h1>
+				</div>
+			</div>
+
+			<div class=" p-3 subtitular">
+				<div class="col-12 pt-3">
+					<h3>Disfruta de Random Comics</h3>
+				</div>
+			</div>
+
+		</div>
+	</header>
+	
+		<div class="container">
+			<div class="row pt-4 pb-5">
+				
+				<div class="col-8 px-5">
+					<div id="cambiarComic">
+						
+
+					</div>
+				</div>
+
+				<div class="col-4">
+
+					<h4>Título:</h4>
+					<h2 id="titulo_comic">Nombre del Comic</h2> <hr />
+					<h4>Descripción</h4> 
+					<p id="descripcion_comic">Descripción del comic</p>
+
+					<hr />
+
+					<div class="row">
+						
+						<h4>Calificación</h4>
+						
+						<div class="star-rating">
+						  <input type="radio" id="5-stars" name="rating" value="5" />
+						  <label for="5-stars" class="star">&#9733;</label>
+						  <input type="radio" id="4-stars" name="rating" value="4" />
+						  <label for="4-stars" class="star">&#9733;</label>
+						  <input type="radio" id="3-stars" name="rating" value="3" />
+						  <label for="3-stars" class="star">&#9733;</label>
+						  <input type="radio" id="2-stars" name="rating" value="2" />
+						  <label for="2-stars" class="star">&#9733;</label>
+						  <input type="radio" id="1-star" name="rating" value="1" />
+						  <label for="1-star" class="star">&#9733;</label>
+						</div>
+
+						<div class="col-8 text-left">
+							<button type="button" class="btn btn-outline-dark">Calificar</button>
+						</div>
+					</div>
+	
+
+					
+					
+
+					<hr />
+
+					<button type="button" class="btn btn-danger" onclick="traer()">Ramdon Comic</button>
+
+				</div>
+
+			
+			</div>
+		</div>
+
+
+		<footer class="bg-dark text-white text-center py-4">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h5>"Cuando alguien necesita ayuda, debes dar un paso adelante y lidiar más tarde con las consecuencias" - Superman</h5>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+
+		<script>
+			
+			let TraerComic = document.getElementById('#cambiarComic')
+
+			function traer() {
+			
+				var num = Math.floor(Math.random() * (630 - 610)) + 610;
+
+				fetch("http://localhost/masivian/request.php?num="+num)
+ 				.then(res => res.json())
+ 				.then(data => {
+					
+ 					// console.log(data);
+ 					// console.log(data['alt']);
+ 					// console.log(data['title']);
+
+					document.getElementById("descripcion_comic").innerHTML = data['alt'];
+					document.getElementById("titulo_comic").innerHTML = data['title'];
+					
+					cambiarComic.innerHTML = `
+	                <img src="${data['img']}" class="w-100 img-fluid"> 
+
+	                `
+ 				})
+			}
+
+		</script>
+
+
+
+</body>
+</html>
